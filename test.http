@@ -1,0 +1,108 @@
+### API REST - CRUD de Usuarios
+### Archivo para pruebas con REST Client (VS Code Extension) o similares
+
+### Variables
+@baseUrl = http://localhost:3000
+@userId = 1
+
+### ========================================
+### 1. GET /users - Listar todos los usuarios
+### ========================================
+GET {{baseUrl}}/users
+Content-Type: application/json
+
+### ========================================
+### 2. GET /users/:id - Obtener un usuario por ID
+### ========================================
+GET {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+
+### ========================================
+### 3. POST /users - Crear un nuevo usuario
+### ========================================
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "first": "Pedro",
+  "last": "Sánchez",
+  "email": "pedro.sanchez@email.com",
+  "phone": "555-9999",
+  "location": "Barcelona, España",
+  "hobby": "Ciclismo"
+}
+
+### ========================================
+### 4. POST /users - Crear usuario (solo campos requeridos)
+### ========================================
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "first": "Ana",
+  "last": "Torres",
+  "email": "ana.torres@email.com"
+}
+
+### ========================================
+### 5. PUT /users/:id - Actualizar usuario completo
+### ========================================
+PUT {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "first": "Juan Carlos",
+  "last": "Pérez García",
+  "email": "juan.perez@email.com",
+  "phone": "555-1111",
+  "location": "Cusco, Perú",
+  "hobby": "Fotografía de naturaleza"
+}
+
+### ========================================
+### 6. PUT /users/:id - Actualizar usuario parcial
+### ========================================
+PUT {{baseUrl}}/users/2
+Content-Type: application/json
+
+{
+  "hobby": "Cocina italiana",
+  "location": "Córdoba, Argentina"
+}
+
+### ========================================
+### 7. DELETE /users/:id - Eliminar usuario
+### ========================================
+DELETE {{baseUrl}}/users/3
+Content-Type: application/json
+
+### ========================================
+### 8. GET /users/:id - Obtener usuario no existente (404)
+### ========================================
+GET {{baseUrl}}/users/999
+Content-Type: application/json
+
+### ========================================
+### 9. POST /users - Crear usuario con validación fallida (400)
+### ========================================
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "first": "",
+  "last": "Test",
+  "email": "email-invalido"
+}
+
+### ========================================
+### 10. POST /users - Crear usuario con email duplicado (error)
+### ========================================
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "first": "Duplicate",
+  "last": "User",
+  "email": "juan.perez@email.com"
+}
+

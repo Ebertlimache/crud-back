@@ -1,7 +1,11 @@
+-- Configurar codificación UTF-8
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+
 -- Eliminar tabla si existe
 DROP TABLE IF EXISTS Users;
 
--- Crear tabla Users
+-- Crear tabla Users con codificación UTF-8
 CREATE TABLE Users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   first VARCHAR(100) NOT NULL,
@@ -10,7 +14,7 @@ CREATE TABLE Users (
   phone VARCHAR(20),
   location VARCHAR(200),
   hobby VARCHAR(150)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Insertar datos de ejemplo
 INSERT INTO Users (first, last, email, phone, location, hobby) VALUES

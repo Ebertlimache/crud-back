@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   HttpCode,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -21,8 +22,8 @@ export class UsersController {
 
   // GET /users - Listar todos los usuarios
   @Get()
-  async findAll(): Promise<User[]> {
-    return await this.usersService.findAll();
+  async findAll(@Query('search') search?: string): Promise<User[]> { // ← CAMBIA ESTA LÍNEA
+    return await this.usersService.findAll(search); // ← CAMBIA ESTA LÍNEA
   }
 
   // GET /users/:id - Obtener un usuario por ID

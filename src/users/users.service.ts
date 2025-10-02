@@ -12,8 +12,20 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  // GET /users - Listar todos los usuarios
-  async findAll(): Promise<User[]> {
+  // GET /users - Listar todos los usuarios (con búsqueda opcional)
+  async findAll(search?: string): Promise<User[]> {
+    if (search) {
+      // Para MySQL: usar LIKE con LOWER() para búsqueda case-insensitive
+      const searchTerm = `%${search.toLowerCase()}%`;
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .where(
+          'LOWER(user.first) LIKE :search OR LOWER(user.last) LIKE :search OR LOWER(user.email) LIKE :search OR LOWER(user.location) LIKE :search OR LOWER(user.hobby) LIKE :search',
+          { search: searchTerm }
+        )
+        .getMany();
+    }
+    
     return await this.userRepository.find();
   }
 
@@ -45,4 +57,3 @@ export class UsersService {
     await this.userRepository.remove(user);
   }
 }
-
